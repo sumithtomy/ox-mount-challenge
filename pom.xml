@@ -14,6 +14,7 @@
 	<description>Ox Mount Spring Boot Project to check the machine age deviation.</description>
 	<properties>
 		<java.version>11</java.version>
+		<swagger.version>3.0.0</swagger.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -26,12 +27,21 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<!-- Swagger 2 -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+
+		<!-- Lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>

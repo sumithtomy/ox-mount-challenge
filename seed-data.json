@@ -1,0 +1,30 @@
+[
+  {
+    "machineAge": "1 month",
+    "machineId": "M-1122"
+  },
+  {
+    "machineAge": "6 month",
+    "machineId": "M-2233"
+  },
+  {
+    "machineAge": "10 years",
+    "machineId": "M-2222"
+  },
+  {
+    "machineAge": "90 years",
+    "machineId": "M-1122"
+  },
+  {
+    "machineAge": "15 Years",
+    "machineId": "M-1144"
+  },
+  {
+    "machineAge": "1 month",
+    "machineId": "M-1156"
+  },
+  {
+    "machineAge": "91 years",
+    "machineId": "M-6622"
+  }
+]

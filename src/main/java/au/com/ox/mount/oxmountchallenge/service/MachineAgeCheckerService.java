@@ -5,55 +5,44 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
+import au.com.ox.mount.oxmountchallenge.constants.Constants;
+import au.com.ox.mount.oxmountchallenge.model.MachineModel;
+import au.com.ox.mount.oxmountchallenge.utils.CommonUtils;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
+@Service
+@NoArgsConstructor
 public class MachineAgeCheckerService {
-  
-  private static final Logger LOGGER = LoggerFactory.getILoggerFactory().getLogger(MachineAgeCheckerService.class.getName());
-  private static final double OUTLIER_THRESHOLD = 2.0; // number of standard deviations from the mean to consider an outlier
 
-  public static List<String> getOutOfRangeValues(List<String> machineAges) {
-    double[] sampleValues = machineAges.stream().mapToDouble(MachineAgeCheckerService::parseMachineAgeValue).toArray();
-    double mean = calculateMean(sampleValues);
-    LOGGER.info(String.format("Mean Value for Sample %s" , mean));
-    double stdDev = calculateStandardDeviation(sampleValues, mean);
-    LOGGER.info(String.format("stdDev Value for Sample %s" , stdDev));
+  private static final Logger LOGGER = LoggerFactory.getILoggerFactory().getLogger(MachineAgeCheckerService.class.getName());
+
+  /**
+   * Gets the out of range values from the input given. This method make use of the Media and Std-Deviation to find the odd/out of range
+   * values from the given input.
+   *
+   * @param machines the machines
+   * @return the out of range values
+   */
+  // number of standard deviations from the mean to consider an outlier
+  public  List<String> getOutOfRangeValues(@NonNull List<MachineModel> machines) {
+    
+    double[] machineAges = machines.stream().map(MachineModel::getMachineAge).mapToDouble(CommonUtils::parseMachineAgeValue).toArray();
+    double mean = CommonUtils.calculateMean(machineAges);
+    LOGGER.info("Mean Value for Input: {}", mean);
+    double stdDev = CommonUtils.calculateStandardDeviation(machineAges, mean);
+    LOGGER.info("StdDev Value for Input: {}", stdDev);
     List<String> outOfRangeValues = new ArrayList<>();
-    for (String machineAge : machineAges) {
-      double value = parseMachineAgeValue(machineAge);
-      if (Math.abs(value - mean) > OUTLIER_THRESHOLD * stdDev) {
-        outOfRangeValues.add(machineAge);
+    machines.stream().forEach(machine -> {
+      double value = CommonUtils.parseMachineAgeValue(machine.getMachineAge());
+      if (Math.abs(value - mean) > Constants.OUTLIER_THRESHOLD * stdDev) {
+        outOfRangeValues.add(machine.getMachineId());
       }
-    }
+    });
+
     return outOfRangeValues;
   }
 
-  private static double parseMachineAgeValue(String machineAge) {
-    // extract the numeric value from the machine_age string and convert it to years
-    if (machineAge.endsWith("years")||machineAge.endsWith("year")) {
-      return Double.parseDouble(machineAge.replaceAll("year(s)?", "").trim());
-    } else if (machineAge.endsWith("months")) {
-      return Double.parseDouble(machineAge.replace("months", "").trim()) / 12.0;
-    } else if (machineAge.endsWith("month")) {
-      return 1.0 / 12.0;
-    } else {
-      throw new IllegalArgumentException("Invalid machine_age format: " + machineAge);
-    }
-  }
-
-  private static double calculateMean(double[] values) {
-    double sum = 0.0;
-    for (double value : values) {
-      sum += value;
-    }
-    return sum / values.length;
-  }
-
-  private static double calculateStandardDeviation(double[] values, double mean) {
-    double sum = 0.0;
-    for (double value : values) {
-      sum += Math.pow(value - mean, 2);
-    }
-    return Math.sqrt(sum / values.length);
-  }
 }
