@@ -16,7 +16,7 @@
     "machineId": "M-1122"
   },
   {
-    "machineAge": "15 Years",
+    "machineAge": "1 Years",
     "machineId": "M-1144"
   },
   {
@@ -26,5 +26,50 @@
   {
     "machineAge": "91 years",
     "machineId": "M-6622"
+  },
+ {
+    "machineAge": "92 years",
+    "machineId": "M-6622"
+  },
+    {
+    "machineAge": "81 month",
+    "machineId": "M-2257"
+  },
+  {
+    "machineAge": "81 month",
+    "machineId": "M-6655"
+  }
+    ,
+    {
+    "machineAge": "81 month",
+    "machineId": "M-2256"
+  },
+  {
+    "machineAge": "81 month",
+    "machineId": "M-6655"
+  }    ,
+    {
+    "machineAge": "81 month",
+    "machineId": "M-2257"
+  },
+  {
+    "machineAge": "81 month",
+    "machineId": "M-6655"
+  }    ,
+    {
+    "machineAge": "31 month",
+    "machineId": "M-2356"
+  },
+  {
+    "machineAge": "81 month",
+    "machineId": "M-6755"
+  }    ,
+    {
+    "machineAge": "71 month",
+    "machineId": "M-2756"
+  },
+  {
+    "machineAge": "61 month",
+    "machineId": "M-6955"
   }
 ]
